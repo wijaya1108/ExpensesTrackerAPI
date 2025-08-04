@@ -1,4 +1,7 @@
 
+using ExpensesTracker.Infrastructure;
+using Scalar.AspNetCore;
+
 namespace ExpensesTracker.API
 {
     public class Program
@@ -12,6 +15,7 @@ namespace ExpensesTracker.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             var app = builder.Build();
 
@@ -19,6 +23,7 @@ namespace ExpensesTracker.API
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
             app.UseHttpsRedirection();
