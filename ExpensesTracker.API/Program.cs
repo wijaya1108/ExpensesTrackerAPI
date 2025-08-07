@@ -1,4 +1,5 @@
 
+using ExpensesTracker.Application;
 using ExpensesTracker.Infrastructure;
 using Scalar.AspNetCore;
 
@@ -15,7 +16,10 @@ namespace ExpensesTracker.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
             builder.Services.AddInfrastructureServices(builder.Configuration);
+
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
