@@ -36,7 +36,7 @@ namespace ExpensesTracker.Infrastructure.Configurations
 
             builder.Property(u => u.Password)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(250);
 
             builder.Property(u => u.CreatedDate)
                 .IsRequired();
