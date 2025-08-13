@@ -23,6 +23,13 @@ namespace ExpensesTracker.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{uid:guid}")] //to ensure only valid guids are accepted
+        public async Task<ActionResult<UserResponse>> GetUserById(Guid uid)
+        {
+            var result = await _userService.GetUserById(uid);
+            return result != null ? Ok(result) : NotFound();
+        }
+
         [HttpPost]
         public async Task<ActionResult<UserResponse>> CreateUser([FromBody] CreateUserRequest request)
         {

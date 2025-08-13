@@ -10,6 +10,7 @@ namespace ExpensesTracker.Domain.Interfaces
     public interface IUserRepository
     {
         Task<List<User>> GetAllUsers();
+        Task<User> GetUserById(Guid uid);
         Task<User> InsertUser(User user);
     }
 }

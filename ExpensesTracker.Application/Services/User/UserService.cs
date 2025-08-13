@@ -21,16 +21,6 @@ namespace ExpensesTracker.Application.Services.User
             _passwordHashService = passwordHashService;
         }
 
-        public async Task<UserResponse> CreateUser(CreateUserRequest request)
-        {
-            var user = request.MapToUser(); //extension method to map to user model
-            user.Password = _passwordHashService.HashPassword(user.Password);
-            var newUser = await _userRepository.InsertUser(user);
-
-            UserResponse userResponse = newUser.MapToUserResponse();
-            return userResponse;
-        }
-
         public async Task<List<UserResponse>> GetAllUsers()
         {
             var userResponseList = new List<UserResponse>();
@@ -48,5 +38,23 @@ namespace ExpensesTracker.Application.Services.User
 
             return userResponseList;
         }
+
+        public async Task<UserResponse> GetUserById(Guid uid)
+        {
+            var user = await _userRepository.GetUserById(uid);
+
+            return user?.MapToUserResponse(); //returns null if user is null
+        }
+
+        public async Task<UserResponse> CreateUser(CreateUserRequest request)
+        {
+            var user = request.MapToUser(); //extension method to map to user model
+            user.Password = _passwordHashService.HashPassword(user.Password);
+            var newUser = await _userRepository.InsertUser(user);
+
+            UserResponse userResponse = newUser.MapToUserResponse();
+            return userResponse;
+        }
+
     }
 }

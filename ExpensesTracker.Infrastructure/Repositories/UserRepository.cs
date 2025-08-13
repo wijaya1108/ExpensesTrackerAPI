@@ -28,6 +28,15 @@ namespace ExpensesTracker.Infrastructure.Repositories
             return users;
         }
 
+        public async Task<User> GetUserById(Guid uid)
+        {
+            var user = await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.UID == uid && !u.IsDeleted);
+
+            return user;
+        }
+
         public async Task<User> InsertUser(User user)
         {
             await _dbContext.Users.AddAsync(user);
