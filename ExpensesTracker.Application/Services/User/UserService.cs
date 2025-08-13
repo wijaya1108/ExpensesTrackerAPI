@@ -30,5 +30,23 @@ namespace ExpensesTracker.Application.Services.User
             UserResponse userResponse = newUser.MapToUserResponse();
             return userResponse;
         }
+
+        public async Task<List<UserResponse>> GetAllUsers()
+        {
+            var userResponseList = new List<UserResponse>();
+            var users = await _userRepository.GetAllUsers();
+
+            if (users != null && users.Any())
+            {
+                foreach (var user in users)
+                {
+                    userResponseList.Add(user.MapToUserResponse());
+                }
+
+                return userResponseList;
+            }
+
+            return userResponseList;
+        }
     }
 }
