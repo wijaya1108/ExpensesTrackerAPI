@@ -17,10 +17,10 @@ namespace ExpensesTracker.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<string>> GetAllUsers()
+        public async Task<ActionResult<List<UserResponse>>> GetAllUsers()
         {
-            List<string> users = new List<string>() { "A", "B", "C" };
-            return Ok(users);
+            var result = await _userService.GetAllUsers();
+            return Ok(result);
         }
 
         [HttpPost]

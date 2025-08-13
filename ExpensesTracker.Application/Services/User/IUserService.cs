@@ -9,6 +9,7 @@ namespace ExpensesTracker.Application.Services.User
 {
     public interface IUserService
     {
+        Task<List<UserResponse>> GetAllUsers();
         Task<UserResponse> CreateUser(CreateUserRequest request);
     }
 }

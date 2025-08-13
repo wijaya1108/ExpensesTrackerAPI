@@ -1,5 +1,6 @@
 ﻿using ExpensesTracker.Domain.Entities;
 using ExpensesTracker.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,16 @@ namespace ExpensesTracker.Infrastructure.Repositories
         public UserRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await _dbContext.Users
+                .AsNoTracking()
+                .Where(u => !u.IsDeleted)
+                .ToListAsync();
+
+            return users;
         }
 
         public async Task<User> InsertUser(User user)
