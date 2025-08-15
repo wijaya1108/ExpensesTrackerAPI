@@ -29,5 +29,17 @@ namespace ExpensesTracker.Application.Mappers
         {
             return new UserResponse(user.UID, user.FirstName, user.LastName, user.Address, user.Email, user.CreatedDate);
         }
+
+        public static User MapToUser(this UpdateUserRequest request, Guid uid)
+        {
+            return new User
+            {
+                UID = uid,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Address = request.Address,
+                Email = request.Email
+            };
+        }
     }
 }
