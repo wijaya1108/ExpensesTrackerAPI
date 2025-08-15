@@ -43,5 +43,38 @@ namespace ExpensesTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
             return user;
         }
+
+        public async Task<bool> UpdateUser(User user)
+        {
+            var existingUser = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.UID == user.UID && !u.IsDeleted);
+
+            if (existingUser != null)
+            {
+                existingUser.FirstName = user.FirstName;
+                existingUser.LastName = user.LastName;
+                existingUser.Address = user.Address;
+                existingUser.Email = user.Email;
+
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> DeleteUser(Guid uid)
+        {
+            var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.UID == uid && !u.IsDeleted);
+
+            if (existingUser != null)
+            {
+                existingUser.IsDeleted = true;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

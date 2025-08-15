@@ -1,6 +1,23 @@
-@ExpensesTracker.API_HostAddress = http://localhost:5034
+@ExpensesTracker.API_HostAddress = https://localhost:7221
 
 GET {{ExpensesTracker.API_HostAddress}}/weatherforecast/
 Accept: application/json
+
+###
+
+GET {{ExpensesTracker.API_HostAddress}}/api/users
+
+###
+
+POST {{ExpensesTracker.API_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Ren",
+  "lastName": "Vienna",
+  "address": null,
+  "email": "rv@gmail.com",
+  "password": "rv123"
+}
 
 ###

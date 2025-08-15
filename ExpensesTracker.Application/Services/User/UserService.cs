@@ -39,7 +39,7 @@ namespace ExpensesTracker.Application.Services.User
             return userResponseList;
         }
 
-        public async Task<UserResponse> GetUserById(Guid uid)
+        public async Task<UserResponse?> GetUserById(Guid uid)
         {
             var user = await _userRepository.GetUserById(uid);
 
@@ -56,5 +56,17 @@ namespace ExpensesTracker.Application.Services.User
             return userResponse;
         }
 
+        public async Task<bool> UpdateUser(UpdateUserRequest request, Guid uid)
+        {
+            var user = request.MapToUser(uid);
+            var result = await _userRepository.UpdateUser(user);
+            return result;
+        }
+
+        public async Task<bool> DeleteUser(Guid uid)
+        {
+            var result = await _userRepository.DeleteUser(uid);
+            return result;
+        }
     }
 }

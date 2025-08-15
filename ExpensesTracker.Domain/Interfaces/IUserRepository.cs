@@ -12,5 +12,7 @@ namespace ExpensesTracker.Domain.Interfaces
         Task<List<User>> GetAllUsers();
         Task<User> GetUserById(Guid uid);
         Task<User> InsertUser(User user);
+        Task<bool> UpdateUser(User user);
+        Task<bool> DeleteUser(Guid uid);
     }
 }

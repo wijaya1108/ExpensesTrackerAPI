@@ -34,8 +34,21 @@ namespace ExpensesTracker.API.Controllers
         public async Task<ActionResult<UserResponse>> CreateUser([FromBody] CreateUserRequest request)
         {
             var result = await _userService.CreateUser(request);
-            return Ok(result);
+            return CreatedAtAction(nameof(GetUserById), new { uid = result.UID }, result);
         }
 
+        [HttpPut("{uid:guid}")]
+        public async Task<ActionResult> UpdateUser([FromBody] UpdateUserRequest request, Guid uid)
+        {
+            var result = await _userService.UpdateUser(request, uid);
+            return result ? NoContent() : NotFound();
+        }
+
+        [HttpDelete("{uid:guid}")]
+        public async Task<ActionResult> DeleteUser(Guid uid)
+        {
+            var result = await _userService.DeleteUser(uid);
+            return result ? NoContent() : NotFound();
+        }
     }
 }
