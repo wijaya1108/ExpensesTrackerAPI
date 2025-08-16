@@ -21,13 +21,14 @@ namespace ExpensesTracker.Application.Mappers
                 Email = request.Email,
                 Password = request.Password,
                 CreatedDate = DateTime.UtcNow,
+                ModifiedDate = DateTime.UtcNow,
                 IsDeleted = false
             };
         }
 
         public static UserResponse MapToUserResponse(this User user)
         {
-            return new UserResponse(user.UID, user.FirstName, user.LastName, user.Address, user.Email, user.CreatedDate);
+            return new UserResponse(user.UID, user.FirstName, user.LastName, user.Address, user.Email, user.CreatedDate, user.ModifiedDate);
         }
 
         public static User MapToUser(this UpdateUserRequest request, Guid uid)

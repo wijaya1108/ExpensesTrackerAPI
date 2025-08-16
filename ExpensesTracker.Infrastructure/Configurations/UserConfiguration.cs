@@ -41,6 +41,8 @@ namespace ExpensesTracker.Infrastructure.Configurations
             builder.Property(u => u.CreatedDate)
                 .IsRequired();
 
+            builder.Property(u => u.ModifiedDate);
+
             builder.Property(u => u.IsDeleted)
                 .IsRequired();
 
