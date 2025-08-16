@@ -21,10 +21,10 @@ namespace ExpensesTracker.Application.Services.User
             _passwordHashService = passwordHashService;
         }
 
-        public async Task<List<UserResponse>> GetAllUsers()
+        public async Task<List<UserResponse>> GetAllUsers(CancellationToken cancellationToken)
         {
             var userResponseList = new List<UserResponse>();
-            var users = await _userRepository.GetAllUsers();
+            var users = await _userRepository.GetAllUsers(cancellationToken);
 
             if (users != null && users.Any())
             {
@@ -39,33 +39,33 @@ namespace ExpensesTracker.Application.Services.User
             return userResponseList;
         }
 
-        public async Task<UserResponse?> GetUserById(Guid uid)
+        public async Task<UserResponse?> GetUserById(Guid uid, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserById(uid);
+            var user = await _userRepository.GetUserById(uid, cancellationToken);
 
             return user?.MapToUserResponse(); //returns null if user is null
         }
 
-        public async Task<UserResponse> CreateUser(CreateUserRequest request)
+        public async Task<UserResponse> CreateUser(CreateUserRequest request, CancellationToken cancellationToken)
         {
             var user = request.MapToUser(); //extension method to map to user model
             user.Password = _passwordHashService.HashPassword(user.Password);
-            var newUser = await _userRepository.InsertUser(user);
+            var newUser = await _userRepository.InsertUser(user, cancellationToken);
 
             UserResponse userResponse = newUser.MapToUserResponse();
             return userResponse;
         }
 
-        public async Task<bool> UpdateUser(UpdateUserRequest request, Guid uid)
+        public async Task<bool> UpdateUser(UpdateUserRequest request, Guid uid, CancellationToken cancellationToken)
         {
             var user = request.MapToUser(uid);
-            var result = await _userRepository.UpdateUser(user);
+            var result = await _userRepository.UpdateUser(user, cancellationToken);
             return result;
         }
 
-        public async Task<bool> DeleteUser(Guid uid)
+        public async Task<bool> DeleteUser(Guid uid, CancellationToken cancellationToken)
         {
-            var result = await _userRepository.DeleteUser(uid);
+            var result = await _userRepository.DeleteUser(uid, cancellationToken);
             return result;
         }
     }

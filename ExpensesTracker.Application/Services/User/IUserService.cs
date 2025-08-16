@@ -9,10 +9,10 @@ namespace ExpensesTracker.Application.Services.User
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetAllUsers();
-        Task<UserResponse?> GetUserById(Guid uid);
-        Task<UserResponse> CreateUser(CreateUserRequest request);
-        Task<bool> UpdateUser(UpdateUserRequest request, Guid uid);
-        Task<bool> DeleteUser(Guid uid);
+        Task<List<UserResponse>> GetAllUsers(CancellationToken cancellationToken);
+        Task<UserResponse?> GetUserById(Guid uid, CancellationToken cancellationToken);
+        Task<UserResponse> CreateUser(CreateUserRequest request, CancellationToken cancellationToken);
+        Task<bool> UpdateUser(UpdateUserRequest request, Guid uid, CancellationToken cancellationToken);
+        Task<bool> DeleteUser(Guid uid, CancellationToken cancellationToken);
     }
 }

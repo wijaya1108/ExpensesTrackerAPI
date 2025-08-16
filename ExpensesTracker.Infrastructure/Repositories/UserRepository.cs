@@ -18,36 +18,36 @@ namespace ExpensesTracker.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers(CancellationToken cancellationToken)
         {
             var users = await _dbContext.Users
                 .AsNoTracking()
                 .Where(u => !u.IsDeleted)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return users;
         }
 
-        public async Task<User> GetUserById(Guid uid)
+        public async Task<User> GetUserById(Guid uid, CancellationToken cancellationToken)
         {
             var user = await _dbContext.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.UID == uid && !u.IsDeleted);
+                .FirstOrDefaultAsync(u => u.UID == uid && !u.IsDeleted, cancellationToken);
 
             return user;
         }
 
-        public async Task<User> InsertUser(User user)
+        public async Task<User> InsertUser(User user, CancellationToken cancellationToken)
         {
-            await _dbContext.Users.AddAsync(user);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Users.AddAsync(user, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return user;
         }
 
-        public async Task<bool> UpdateUser(User user)
+        public async Task<bool> UpdateUser(User user, CancellationToken cancellationToken)
         {
             var existingUser = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.UID == user.UID && !u.IsDeleted);
+                .FirstOrDefaultAsync(u => u.UID == user.UID && !u.IsDeleted, cancellationToken);
 
             if (existingUser != null)
             {
@@ -57,21 +57,21 @@ namespace ExpensesTracker.Infrastructure.Repositories
                 existingUser.Email = user.Email;
                 existingUser.ModifiedDate = DateTime.UtcNow;
 
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
             }
 
             return false;
         }
 
-        public async Task<bool> DeleteUser(Guid uid)
+        public async Task<bool> DeleteUser(Guid uid, CancellationToken cancellationToken)
         {
-            var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.UID == uid && !u.IsDeleted);
+            var existingUser = await _dbContext.Users.SingleOrDefaultAsync(u => u.UID == uid && !u.IsDeleted, cancellationToken);
 
             if (existingUser != null)
             {
                 existingUser.IsDeleted = true;
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync(cancellationToken);
                 return true;
             }
 
