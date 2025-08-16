@@ -12,6 +12,7 @@ namespace ExpensesTracker.Application.DTO.User
         string LastName,
         string? Address,
         string Email,
-        DateTime CreatedDate
+        DateTime CreatedDate,
+        DateTime ModifiedDate
         );
 }

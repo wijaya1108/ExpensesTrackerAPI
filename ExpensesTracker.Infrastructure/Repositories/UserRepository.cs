@@ -55,6 +55,7 @@ namespace ExpensesTracker.Infrastructure.Repositories
                 existingUser.LastName = user.LastName;
                 existingUser.Address = user.Address;
                 existingUser.Email = user.Email;
+                existingUser.ModifiedDate = DateTime.UtcNow;
 
                 await _dbContext.SaveChangesAsync();
                 return true;
