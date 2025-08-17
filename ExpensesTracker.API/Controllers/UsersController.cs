@@ -48,11 +48,7 @@ namespace ExpensesTracker.API.Controllers
         public async Task<ActionResult> DeleteUser(Guid uid, CancellationToken cancellationToken)
         {
             var result = await _userService.DeleteUser(uid, cancellationToken);
-            if (result)
-                NoContent();
-            else
-                NotFound();
-            //return result ? NoContent() : NotFound();
+            return result ? NoContent() : NotFound();
         }
     }
 }
