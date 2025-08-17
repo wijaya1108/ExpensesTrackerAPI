@@ -49,9 +49,9 @@ namespace ExpensesTracker.API.Controllers
         {
             var result = await _userService.DeleteUser(uid, cancellationToken);
             if (result)
-                return NoContent();
+                NoContent();
             else
-                return NotFound();
+                NotFound();
             //return result ? NoContent() : NotFound();
         }
     }
