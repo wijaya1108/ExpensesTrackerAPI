@@ -1,4 +1,5 @@
 
+using ExpensesTracker.API.Middleware;
 using ExpensesTracker.Application;
 using ExpensesTracker.Infrastructure;
 using Scalar.AspNetCore;
@@ -31,6 +32,8 @@ namespace ExpensesTracker.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthorization();
 
