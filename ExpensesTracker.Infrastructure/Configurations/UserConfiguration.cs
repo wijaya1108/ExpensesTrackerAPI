@@ -49,6 +49,12 @@ namespace ExpensesTracker.Infrastructure.Configurations
             // Optional: Add indexes for better query performance
             builder.HasIndex(u => u.Email)
                 .IsUnique(); // Enforces uniqueness at the database level
+
+
+            builder.HasMany(u => u.Transactions)
+                .WithOne(t => t.User)
+                .HasForeignKey(t => t.UserUID);
+
         }
     }
 }
