@@ -39,6 +39,10 @@ namespace ExpensesTracker.Infrastructure.Configurations
             builder.Property(t => t.IsDeleted)
                 .IsRequired();
 
+            builder.HasOne(t => t.TransactionType)
+                .WithMany()
+                .HasForeignKey(t => t.TransactionTypeId);
+
         }
     }
 }

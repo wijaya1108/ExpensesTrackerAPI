@@ -19,5 +19,8 @@ namespace ExpensesTracker.Domain.Entities
 
         public Guid UserUID { get; set; }
         public User User { get; set; }
+
+        public int TransactionTypeId { get; set; }
+        public TransactionType TransactionType { get; set; }
     }
 }
