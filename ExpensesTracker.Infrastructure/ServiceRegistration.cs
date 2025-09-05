@@ -22,6 +22,7 @@ namespace ExpensesTracker.Infrastructure
             });
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             return services;
         }
