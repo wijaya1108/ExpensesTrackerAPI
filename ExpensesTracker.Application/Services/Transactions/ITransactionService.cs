@@ -1,0 +1,14 @@
+﻿using ExpensesTracker.Application.DTO.Transactions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExpensesTracker.Application.Services.Transactions
+{
+    public interface ITransactionService
+    {
+        Task<TransactionResponse> InsertTransaction(CreateTransactionRequest request);
+    }
+}
