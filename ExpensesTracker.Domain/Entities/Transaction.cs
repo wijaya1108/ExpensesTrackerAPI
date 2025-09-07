@@ -14,7 +14,7 @@ namespace ExpensesTracker.Domain.Entities
         public decimal Amount { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public DateTime DeletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
         public bool IsDeleted { get; set; }
 
         public Guid UserUID { get; set; }
