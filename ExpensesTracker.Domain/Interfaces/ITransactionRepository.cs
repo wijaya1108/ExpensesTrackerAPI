@@ -10,5 +10,6 @@ namespace ExpensesTracker.Domain.Interfaces
     public interface ITransactionRepository
     {
         Task<Transaction> InsertTransaction(Transaction transaction);
+        Task<List<Transaction>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId);
     }
 }

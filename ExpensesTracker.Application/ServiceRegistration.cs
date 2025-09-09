@@ -1,5 +1,4 @@
-﻿using ExpensesTracker.Application.Services;
-using ExpensesTracker.Application.Services.PasswordHash;
+﻿using ExpensesTracker.Application.Services.PasswordHash;
 using ExpensesTracker.Application.Services.Transactions;
 using ExpensesTracker.Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;

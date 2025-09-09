@@ -10,5 +10,6 @@ namespace ExpensesTracker.Application.Services.Transactions
     public interface ITransactionService
     {
         Task<TransactionResponse> InsertTransaction(CreateTransactionRequest request);
+        Task<List<TransactionResponse>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId);
     }
 }

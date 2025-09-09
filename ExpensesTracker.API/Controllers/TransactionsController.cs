@@ -22,5 +22,12 @@ namespace ExpensesTracker.API.Controllers
             var result = await _transactionService.InsertTransaction(request);
             return Ok(result);
         }
+
+        [HttpGet("{userUID:guid}/{transactionTypeId:int}")]
+        public async Task<ActionResult<IEnumerable<TransactionResponse>>> GetTransactionsByUserAndTransactionID(Guid userUID, int transactionTypeId)
+        {
+            var result = await _transactionService.GetTransactionsByUserAndTransactionTypeID(userUID, transactionTypeId);
+            return result;
+        }
     }
 }
