@@ -1,5 +1,6 @@
 ﻿using ExpensesTracker.Domain.Entities;
 using ExpensesTracker.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,17 @@ namespace ExpensesTracker.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public async Task<List<Transaction>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId)
+        {
+            var transactions = await _dbContext.Transactions
+                .AsNoTracking()
+                .Where(t => t.UserUID == userUID && t.TransactionTypeId == transactionTypeId &&!t.IsDeleted)
+                .ToListAsync();
+
+            return transactions;
+        }
+
         public async Task<Transaction> InsertTransaction(Transaction transaction)
         {
             await _dbContext.AddAsync(transaction);

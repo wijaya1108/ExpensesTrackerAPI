@@ -1,6 +1,5 @@
 ﻿using ExpensesTracker.Application.DTO.Transactions;
 using ExpensesTracker.Application.Mappers;
-using ExpensesTracker.Application.Services.Transactions;
 using ExpensesTracker.Domain.Entities;
 using ExpensesTracker.Domain.Interfaces;
 using System;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpensesTracker.Application.Services
+namespace ExpensesTracker.Application.Services.Transactions
 {
     public class TransactionService : ITransactionService
     {
@@ -18,6 +17,23 @@ namespace ExpensesTracker.Application.Services
         public TransactionService(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
+        }
+
+        public async Task<List<TransactionResponse>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId)
+        {
+            var transactionResponseList = new List<TransactionResponse>();
+
+            var transactionsList = await _transactionRepository.GetTransactionsByUserAndTransactionTypeID(userUID, transactionTypeId);
+
+            if (transactionsList.Any())
+            {
+                foreach (var transaction in transactionsList)
+                {
+                    transactionResponseList.Add(transaction.MapToTransactionResponse());
+                }
+            }
+
+            return transactionResponseList;
         }
 
         public async Task<TransactionResponse> InsertTransaction(CreateTransactionRequest request)
