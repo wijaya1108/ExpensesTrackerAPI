@@ -33,5 +33,16 @@ namespace ExpensesTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
             return transaction;
         }
+
+        public async Task<Transaction?> GetTransactionByUID(Guid transactionUID)
+        {
+            var transaction = await _dbContext.Transactions
+                .AsNoTracking()
+                .Where(t => t.UID == transactionUID && !t.IsDeleted)
+                .Include(t => t.User)
+                .FirstOrDefaultAsync();
+
+            return transaction;
+        }
     }
 }
