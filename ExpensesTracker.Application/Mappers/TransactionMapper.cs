@@ -39,5 +39,16 @@ namespace ExpensesTracker.Application.Mappers
                 transaction.TransactionTypeId
             );
         }
+
+        public static Transaction MapToTransaction(this UpdateTransactionRequest request, Guid transactionUID)
+        {
+            return new Transaction
+            {
+                UID = transactionUID,
+                Name = request.Name,
+                Description = request.Description,
+                Amount = request.Amount
+            };
+        }
     }
 }

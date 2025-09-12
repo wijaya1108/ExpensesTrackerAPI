@@ -44,5 +44,24 @@ namespace ExpensesTracker.Infrastructure.Repositories
 
             return transaction;
         }
+
+        public async Task<bool> UpdateTransaction(Transaction transaction)
+        {
+            var existingTransaction = await _dbContext.Transactions
+                .FirstOrDefaultAsync(t => t.UID == transaction.UID && !t.IsDeleted);
+
+            if (existingTransaction != null)
+            {
+                existingTransaction.Name = transaction.Name;
+                existingTransaction.Description = transaction.Description;
+                existingTransaction.Amount = transaction.Amount;
+                existingTransaction.ModifiedDate = DateTime.UtcNow;
+
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 }

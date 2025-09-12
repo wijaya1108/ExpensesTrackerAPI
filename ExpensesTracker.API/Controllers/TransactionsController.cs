@@ -41,5 +41,12 @@ namespace ExpensesTracker.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{transactionUID:guid}")]
+        public async Task<ActionResult> UpdateTransaction([FromBody] UpdateTransactionRequest request, Guid transactionUID)
+        {
+            var result = await _transactionService.UpdateTransaction(request, transactionUID);
+            return result ? NoContent() : NotFound();
+        }
     }
 }
