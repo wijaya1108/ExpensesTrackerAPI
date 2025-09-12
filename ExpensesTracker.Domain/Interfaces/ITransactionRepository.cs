@@ -12,5 +12,6 @@ namespace ExpensesTracker.Domain.Interfaces
         Task<Transaction> InsertTransaction(Transaction transaction);
         Task<List<Transaction>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId);
         Task<Transaction?> GetTransactionByUID(Guid transactionUID);
+        Task<bool> UpdateTransaction(Transaction transaction);
     }
 }

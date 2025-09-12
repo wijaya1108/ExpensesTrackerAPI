@@ -52,5 +52,12 @@ namespace ExpensesTracker.Application.Services.Transactions
 
             return transaction?.MapToTransactionResponse(); 
         }
+
+        public async Task<bool> UpdateTransaction(UpdateTransactionRequest request, Guid transactionUID)
+        {
+            var transaction = request.MapToTransaction(transactionUID);
+            var result = await _transactionRepository.UpdateTransaction(transaction);
+            return result;
+        }
     }
 }
