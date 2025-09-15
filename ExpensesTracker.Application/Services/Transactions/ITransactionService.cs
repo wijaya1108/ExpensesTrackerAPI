@@ -13,5 +13,6 @@ namespace ExpensesTracker.Application.Services.Transactions
         Task<List<TransactionResponse>> GetTransactionsByUserAndTransactionTypeID(Guid userUID, int transactionTypeId);
         Task<TransactionResponse?> GetTransactionByUID(Guid transactionUID);
         Task<bool> UpdateTransaction(UpdateTransactionRequest request, Guid transactionUID);
+        Task<bool> DeleteTransaction(Guid transactionUID);
     }
 }

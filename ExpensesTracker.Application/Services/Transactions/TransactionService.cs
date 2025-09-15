@@ -59,5 +59,11 @@ namespace ExpensesTracker.Application.Services.Transactions
             var result = await _transactionRepository.UpdateTransaction(transaction);
             return result;
         }
+
+        public async Task<bool> DeleteTransaction(Guid transactionUID)
+        {
+            var result = await _transactionRepository.DeleteTransaction(transactionUID);
+            return result;
+        }
     }
 }
