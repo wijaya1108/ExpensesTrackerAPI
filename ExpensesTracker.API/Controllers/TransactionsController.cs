@@ -48,5 +48,12 @@ namespace ExpensesTracker.API.Controllers
             var result = await _transactionService.UpdateTransaction(request, transactionUID);
             return result ? NoContent() : NotFound();
         }
+
+        [HttpDelete("{transactionUID:guid}")]
+        public async Task<ActionResult> DeleteTransaction(Guid transactionUID)
+        {
+            var result = await _transactionService.DeleteTransaction(transactionUID);
+            return result ? NoContent() : NotFound();
+        }
     }
 }

@@ -63,5 +63,20 @@ namespace ExpensesTracker.Infrastructure.Repositories
 
             return false;
         }
+
+        public async Task<bool> DeleteTransaction(Guid transactionUID)
+        {
+            var existingTransaction = await _dbContext.Transactions
+                .FirstOrDefaultAsync(t => t.UID == transactionUID);
+
+            if (existingTransaction != null)
+            {
+                existingTransaction.IsDeleted = true;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 }
