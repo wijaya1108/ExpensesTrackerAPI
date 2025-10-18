@@ -14,5 +14,6 @@ namespace ExpensesTracker.Domain.Interfaces
         Task<User> InsertUser(User user, CancellationToken cancellationToken);
         Task<bool> UpdateUser(User user, CancellationToken cancellationToken);
         Task<bool> DeleteUser(Guid uid, CancellationToken cancellationToken);
+        Task<User?> GetUserByEmail(string email);
     }
 }

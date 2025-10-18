@@ -1,4 +1,5 @@
-﻿using ExpensesTracker.Application.Services.PasswordHash;
+﻿using ExpensesTracker.Application.Services.Auth;
+using ExpensesTracker.Application.Services.PasswordHash;
 using ExpensesTracker.Application.Services.Transactions;
 using ExpensesTracker.Application.Services.User;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace ExpensesTracker.Application
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPasswordHashService, PasswordHashService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }

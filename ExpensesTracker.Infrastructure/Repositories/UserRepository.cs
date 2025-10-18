@@ -23,6 +23,7 @@ namespace ExpensesTracker.Infrastructure.Repositories
             var users = await _dbContext.Users
                 .AsNoTracking()
                 .Where(u => !u.IsDeleted)
+                .OrderByDescending(u => u.CreatedDate)
                 .ToListAsync(cancellationToken);
 
             return users;
@@ -76,6 +77,16 @@ namespace ExpensesTracker.Infrastructure.Repositories
             }
 
             return false;
+        }
+
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            var user = await _dbContext.Users
+                .AsNoTracking()
+                .Where(u => u.Email == email && !u.IsDeleted)
+                .FirstOrDefaultAsync();
+
+            return user;
         }
     }
 }
