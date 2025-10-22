@@ -1,4 +1,5 @@
 ﻿using ExpensesTracker.Application.Services.Auth;
+using ExpensesTracker.Application.Services.JWT;
 using ExpensesTracker.Application.Services.PasswordHash;
 using ExpensesTracker.Application.Services.Transactions;
 using ExpensesTracker.Application.Services.User;
@@ -19,6 +20,7 @@ namespace ExpensesTracker.Application
             services.AddSingleton<IPasswordHashService, PasswordHashService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<TokenService>();
 
             return services;
         }
