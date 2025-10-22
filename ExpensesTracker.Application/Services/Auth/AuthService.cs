@@ -1,4 +1,5 @@
 ﻿using ExpensesTracker.Application.DTO.Auth;
+using ExpensesTracker.Application.Services.JWT;
 using ExpensesTracker.Application.Services.PasswordHash;
 using ExpensesTracker.Domain.Interfaces;
 using System;
@@ -13,11 +14,13 @@ namespace ExpensesTracker.Application.Services.Auth
     {
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHashService _passwordHashService;
+        private readonly TokenService _tokenService;
 
-        public AuthService(IUserRepository userRepository, IPasswordHashService passwordHashService)
+        public AuthService(IUserRepository userRepository, IPasswordHashService passwordHashService, TokenService tokenService)
         {
             _userRepository = userRepository;
             _passwordHashService = passwordHashService;
+            _tokenService = tokenService;
         }
 
         public async Task<LoginResponse> LoginUser(LoginRequest request)
@@ -31,6 +34,9 @@ namespace ExpensesTracker.Application.Services.Auth
 
                 if (isPasswordVarified)
                 {
+                    var token = _tokenService.CreateToken(existingUser.UID, existingUser.Email, true);
+
+                    loginResponse.Token = token;
                     loginResponse.Email = existingUser.Email;
                     loginResponse.UserUID = existingUser.UID;
                     loginResponse.Success = true;
