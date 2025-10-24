@@ -1,5 +1,6 @@
 ﻿using ExpensesTracker.Application.DTO.User;
 using ExpensesTracker.Application.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace ExpensesTracker.API.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers(CancellationToken cancellationToken)
         {
@@ -23,6 +25,7 @@ namespace ExpensesTracker.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("{uid:guid}")] //to ensure only valid guids are accepted
         public async Task<ActionResult<UserResponse>> GetUserById(Guid uid, CancellationToken cancellationToken)
         {
@@ -37,6 +40,7 @@ namespace ExpensesTracker.API.Controllers
             return CreatedAtAction(nameof(GetUserById), new { uid = result.UID }, result);
         }
 
+        [Authorize]
         [HttpPut("{uid:guid}")]
         public async Task<ActionResult> UpdateUser([FromBody] UpdateUserRequest request, Guid uid, CancellationToken cancellationToken)
         {
@@ -44,6 +48,7 @@ namespace ExpensesTracker.API.Controllers
             return result ? NoContent() : NotFound();
         }
 
+        [Authorize]
         [HttpDelete("{uid:guid}")]
         public async Task<ActionResult> DeleteUser(Guid uid, CancellationToken cancellationToken)
         {
