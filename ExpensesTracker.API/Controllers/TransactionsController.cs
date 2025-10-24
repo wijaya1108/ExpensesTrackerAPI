@@ -1,5 +1,6 @@
 ﻿using ExpensesTracker.Application.DTO.Transactions;
 using ExpensesTracker.Application.Services.Transactions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace ExpensesTracker.API.Controllers
             _transactionService = transactionService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<TransactionResponse>> CreateTransaction([FromBody] CreateTransactionRequest request)
         {
@@ -24,6 +26,7 @@ namespace ExpensesTracker.API.Controllers
             return CreatedAtAction(nameof(GetTransactionByUID), new { transactionUID = result.UID, }, result);
         }
 
+        [Authorize]
         [HttpGet("{userUID:guid}/{transactionTypeId:int}")]
         public async Task<ActionResult<IEnumerable<TransactionResponse>>> GetTransactionsByUserAndTransactionID(Guid userUID, int transactionTypeId)
         {
@@ -31,6 +34,7 @@ namespace ExpensesTracker.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet("{transactionUID:guid}")]
         public async Task<ActionResult<TransactionResponse>> GetTransactionByUID(Guid transactionUID)
         {
@@ -42,6 +46,7 @@ namespace ExpensesTracker.API.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut("{transactionUID:guid}")]
         public async Task<ActionResult> UpdateTransaction([FromBody] UpdateTransactionRequest request, Guid transactionUID)
         {
@@ -49,6 +54,7 @@ namespace ExpensesTracker.API.Controllers
             return result ? NoContent() : NotFound();
         }
 
+        [Authorize]
         [HttpDelete("{transactionUID:guid}")]
         public async Task<ActionResult> DeleteTransaction(Guid transactionUID)
         {
