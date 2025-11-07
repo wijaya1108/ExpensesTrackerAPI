@@ -21,6 +21,7 @@ namespace ExpensesTracker.Application
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddSingleton<TokenService>();
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
             return services;
         }
