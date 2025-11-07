@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,11 @@ namespace ExpensesTracker.Application.Services.JWT
             string token = handler.CreateToken(tokenDescriptor);
 
             return token;
+        }
+
+        public string GenerateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
         }
     }
 }
